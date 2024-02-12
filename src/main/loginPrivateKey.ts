@@ -98,35 +98,36 @@ const handleWalletConnect = (connect: Promise<ConnectedWallet>) => {
 //     state: { data: string };
 // }
 
-for (let pk_i = 1; pk_i <= 5; pk_i++){
+let pkList: string[] = [];
+for (let pk_i = 1; pk_i <= 200; pk_i++){
   var filePath: string = '../../private_keys/metablox-' + pk_i + '.pk';
-  var data = fs.readFileSync(filePath, 'utf8');
-  console.log(data);
-
-  var keyPair = CryptoUtils.privateKeyToKeypair(data);
-  var sender = CryptoUtils.keyPairToAccountAddress(keyPair);
-  console.log(sender,keyPair);
-  handleWalletConnect(connectPrivateKey(sender, keyPair));
-
-  setContractAddress("026006f86c0733d30ed75c96460e57e573efcaa461");
-
-  setTimeout(() => 
-  {
-    var api = getMetaBloxApi();
-
-    console.log("BEFORE SIGNING");
-    console.log(isConnected());
-    console.log(api);
-    if (isConnected() && api !== undefined) {
-      api
-        .sign()
-        .then((transactionHash) => {
-          console.log("https://browser.testnet.partisiablockchain.com/transactions/" + transactionHash);
-        })
-        .catch((msg) => {
-          console.log(msg);
-        });
-    }
-  },
-  1000);
+  pkList.push(fs.readFileSync(filePath, 'utf8'));
 }
+
+console.log(pkList);
+
+var keyPair = CryptoUtils.privateKeyToKeypair(pkList[0]);
+var sender = CryptoUtils.keyPairToAccountAddress(keyPair);
+console.log(sender,keyPair);
+handleWalletConnect(connectPrivateKey(sender, keyPair));
+
+setContractAddress("026006f86c0733d30ed75c96460e57e573efcaa461");
+setTimeout(() => 
+{
+  var api = getMetaBloxApi();
+
+  console.log("BEFORE SIGNING");
+  console.log(isConnected());
+  console.log(api);
+  if (isConnected() && api !== undefined) {
+    api
+      .sign()
+      .then((transactionHash) => {
+        console.log("https://browser.testnet.partisiablockchain.com/transactions/" + transactionHash);
+      })
+      .catch((msg) => {
+        console.log(msg);
+      });
+  }
+},
+1000);
