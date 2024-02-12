@@ -1,5 +1,5 @@
 import { TransactionApi } from "../client/TransactionApi";
-import { register_did } from "./MetaBloxGenerated";
+import { register_did } from "./DidContract";
 import { getContractAddress } from "../AppState";
 
 /**

@@ -26,7 +26,7 @@ import { BigEndianByteOutput } from "@secata-public/bitmanipulation-ts";
 import { Rpc, TransactionPayload } from "./client/TransactionData";
 import { ec } from "elliptic";
 import { CryptoUtils } from "./client/CryptoUtils";
-import { deserializeMetaBloxState } from "./contract/MetaBloxGenerated";
+import { deserializeMetaBloxState } from "./contract/DidContract";
 // import { BlockchainAddress } from "@partisiablockchain/abi-client";
 
 interface MetamaskRequestArguments {
