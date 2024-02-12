@@ -11,7 +11,7 @@ import {
   VecTypeSpec,
 } from "@partisiablockchain/abi-client";
 
-var filePath: string = '../xiaoyi_did.abi';
+var filePath: string = 'xiaoyi_did.abi';
 const fileAbi: FileAbi = new AbiParser(fs.readFileSync(filePath)).parseAbi();
 
 export interface ContractState {
