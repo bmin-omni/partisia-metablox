@@ -110,9 +110,6 @@ setTimeout(() =>
 {
   var api = getMetaBloxApi();
 
-  console.log("BEFORE SIGNING");
-  console.log(isConnected());
-  console.log(api);
   if (isConnected() && api !== undefined) {
     api
       .register_did(sender)
@@ -122,6 +119,9 @@ setTimeout(() =>
       .catch((msg) => {
         console.log(msg);
       });
+  }
+  else {
+    console.log("Wallet not connected or api not created");
   }
 },
 1000);
