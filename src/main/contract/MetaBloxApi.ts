@@ -1,5 +1,5 @@
 import { TransactionApi } from "../client/TransactionApi";
-import { sign } from "./PetitionGenerated";
+import { register_did } from "./MetaBloxGenerated";
 import { getContractAddress } from "../AppState";
 
 /**
@@ -27,7 +27,7 @@ export class MetaBloxApi {
       throw new Error("No address provided");
     }
     // First build the RPC buffer that is the payload of the transaction.
-    const rpc = sign();
+    const rpc = register_did();
     // Then send the payload via the transaction API.
     return this.transactionApi.sendTransactionAndWait(address, rpc, 10_000);
   };
