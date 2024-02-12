@@ -6,7 +6,7 @@
   "dependencies": {
     "@babel/core": "^7.23.9",
     "@noble/hashes": "^1.3.3",
-    "@partisiablockchain/abi-client": "^3.29.0",
+    "@partisiablockchain/abi-client": "^3.30.0",
     "@secata-public/bitmanipulation-ts": "^3.0.6",
     "@types/bn.js": "^5.1.1",
     "@types/elliptic": "^6.4.14",
