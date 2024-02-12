@@ -27,7 +27,7 @@ import { Rpc, TransactionPayload } from "./client/TransactionData";
 import { ec } from "elliptic";
 import { CryptoUtils } from "./client/CryptoUtils";
 import { deserializeMetaBloxState } from "./contract/MetaBloxGenerated";
-import { BlockchainAddress } from "@partisiablockchain/abi-client";
+// import { BlockchainAddress } from "@partisiablockchain/abi-client";
 
 interface MetamaskRequestArguments {
   /** The RPC method to request. */
