@@ -1,24 +1,12 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-// import BN from "bn.js";
 import {
   AbiParser,
-  // AbstractBuilder,
-  // BigEndianReader,
   FileAbi,
-  // FnKinds,
   FnRpcBuilder,
-  // RpcReader,
-  // ScValue,
-  // ScValueEnum,
-  // ScValueOption,
   ScValueStruct,
   StateReader,
-  // TypeIndex,
   StateBytes,
   BlockchainAddress,
 } from "@partisiablockchain/abi-client";
-// import { BigEndianByteOutput } from "@secata-public/bitmanipulation-ts";
 
 const fileAbi: FileAbi = new AbiParser(
   Buffer.from(
@@ -26,8 +14,6 @@ const fileAbi: FileAbi = new AbiParser(
     "hex"
   )
 ).parseAbi();
-
-// type Option<K> = K | undefined;
 
 export interface PetitionState {
   signedBy: BlockchainAddress[];
@@ -63,12 +49,6 @@ export interface SecretVarId {
 export function newSecretVarId(rawId: number): SecretVarId {
   return { rawId };
 }
-
-// function fromScValueSecretVarId(structValue: ScValueStruct): SecretVarId {
-//   return {
-//     rawId: structValue.getFieldValue("raw_id")!.asNumber(),
-//   };
-// }
 
 export function initialize(description: string): Buffer {
   const fnBuilder = new FnRpcBuilder("initialize", fileAbi.contract);
