@@ -102,7 +102,7 @@ for (let pk_i = 1; pk_i <= 200; pk_i++){
 var pkIndex: number = parseInt(process.argv[2]);
 var keyPair = CryptoUtils.privateKeyToKeypair(pkList[pkIndex]);
 var sender = CryptoUtils.keyPairToAccountAddress(keyPair);
-console.log(sender,keyPair);
+console.log(sender);
 handleWalletConnect(connectPrivateKey(sender, keyPair));
 
 setContractAddress("026006f86c0733d30ed75c96460e57e573efcaa461");

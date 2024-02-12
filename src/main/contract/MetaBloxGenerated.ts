@@ -66,7 +66,7 @@ export function initialize(description: string): Buffer {
 
 export function register_did(sender: string): Buffer {
   const fnBuilder = new FnRpcBuilder("register_did", fileAbi.contract);
-  console.log(fnBuilder);
+  // console.log(fnBuilder);
   fnBuilder.addString("did:veric:0x" + sender);
   return fnBuilder.getBytes();
 }
