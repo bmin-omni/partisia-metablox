@@ -26,7 +26,7 @@ import { BigEndianByteOutput } from "@secata-public/bitmanipulation-ts";
 import { Rpc, TransactionPayload } from "./client/TransactionData";
 import { ec } from "elliptic";
 import { CryptoUtils } from "./client/CryptoUtils";
-import { deserializePetitionState } from "./contract/PetitionGenerated";
+import { deserializeMetaBloxState } from "./contract/MetaBloxGenerated";
 import { BlockchainAddress } from "@partisiablockchain/abi-client";
 
 interface MetamaskRequestArguments {
@@ -336,7 +336,7 @@ export const updateContractState = () => {
       // Reads the state of the contract
       const stateBuffer = Buffer.from(contract.serializedContract.state.data, "base64");
 
-      const state = deserializePetitionState({ state: stateBuffer });
+      const state = deserializeMetaBloxState({ state: stateBuffer });
 
       // const stateHeader = <HTMLInputElement>document.querySelector("#state-header");
       // const updateStateButton = <HTMLInputElement>document.querySelector("#update-state");
@@ -345,16 +345,16 @@ export const updateContractState = () => {
 
       // const description = <HTMLElement>document.querySelector("#description");
       // description.innerHTML = `${state.description}`;
-      console.log(state.description);
+      console.log(state.owner_did);
 
       // const signedBy = <HTMLElement>document.querySelector("#signed-by");
       // signedBy.innerHTML = "";
-      state.signedBy.forEach((signer: BlockchainAddress) => {
-        // const signerElement = document.createElement("div");
-        // signerElement.innerHTML = signer.asString();
-        console.log(signer.asString())
-        // signedBy.appendChild(signerElement);
-      });
+      // state.signedBy.forEach((signer: BlockchainAddress) => {
+      //   // const signerElement = document.createElement("div");
+      //   // signerElement.innerHTML = signer.asString();
+      //   console.log(signer.asString())
+      //   // signedBy.appendChild(signerElement);
+      // });
 
       // const contractState = <HTMLElement>document.querySelector("#contract-state");
       // contractState.classList.remove("hidden");

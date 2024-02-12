@@ -4,11 +4,11 @@ import {
   AbiParser,
   FileAbi,
   FnRpcBuilder,
-  // ScValueStruct,
-  // StateReader,
-  // StateBytes,
+  ScValueStruct,
+  StateReader,
+  StateBytes,
   BlockchainAddress,
-  VecTypeSpec,
+  // VecTypeSpec,
 } from "@partisiablockchain/abi-client";
 
 var filePath: string = 'contract/xiaoyi_did.abi';
@@ -17,37 +17,38 @@ const fileAbi: FileAbi = new AbiParser(fs.readFileSync(filePath)).parseAbi();
 export interface ContractState {
   owner: BlockchainAddress,
   owner_did: String,
-  nonce: VecTypeSpec, // Key: Address, Value: Nonce
-  dids: VecTypeSpec, // Key: DID, Value: Controller Address
-  attributes: VecTypeSpec, // Key: DID, Value: Attributes list
-  delegates: VecTypeSpec, // Key: DID, Value: Delegates list <Key: Delegate Address, Value: Expire At>
+  // nonce: VecTypeSpec, // Key: Address, Value: Nonce
+  // dids: VecTypeSpec, // Key: DID, Value: Controller Address
+  // attributes: VecTypeSpec, // Key: DID, Value: Attributes list
+  // delegates: VecTypeSpec, // Key: DID, Value: Delegates list <Key: Delegate Address, Value: Expire At>
 }
 
 export function newContractState(
   owner: BlockchainAddress,
   owner_did: String,
-  nonce: VecTypeSpec,
-  dids: VecTypeSpec,
-  attributes: VecTypeSpec,
-  delegates: VecTypeSpec,
+  // nonce: VecTypeSpec,
+  // dids: VecTypeSpec,
+  // attributes: VecTypeSpec,
+  // delegates: VecTypeSpec,
 ): ContractState {
-  return { owner, owner_did, nonce, dids, attributes, delegates };
+  return { owner, owner_did, 
+    // nonce, dids, attributes, delegates 
+  };
 }
 
-// function fromScValuePetitionState(structValue: ScValueStruct): ContractState {
-//   return {
-//     signedBy: structValue
-//       .getFieldValue("signed_by")!
-//       .setValue()
-//       .values.map((sc1) => BlockchainAddress.fromBuffer(sc1.addressValue().value)),
-//     description: structValue.getFieldValue("description")!.stringValue(),
-//   };
-// }
+function fromScValueMetaBloxState(structValue: ScValueStruct): ContractState {
+  return {
+    owner: BlockchainAddress.fromBuffer(structValue.getFieldValue("owner")!.addressValue().value),
+    owner_did: structValue.getFieldValue("owner_did")!.stringValue(),
+    // nonce: structValue.getFieldValue("nonce")!.vecValue(),
 
-// export function deserializePetitionState(state: StateBytes): PetitionState {
-//   const scValue = new StateReader(state.state, fileAbi.contract, state.avlTrees).readState();
-//   return fromScValuePetitionState(scValue);
-// }
+  };
+}
+
+export function deserializeMetaBloxState(state: StateBytes): ContractState {
+  const scValue = new StateReader(state.state, fileAbi.contract, state.avlTrees).readState();
+  return fromScValueMetaBloxState(scValue);
+}
 
 export interface SecretVarId {
   rawId: number;
