@@ -98,36 +98,35 @@ const handleWalletConnect = (connect: Promise<ConnectedWallet>) => {
 //     state: { data: string };
 // }
 
-var data = fs.readFileSync('metablox-1.pk', 'utf8');
-console.log(data);
+for (let pk_i = 1; pk_i <= 5; pk_i++){
+  var filePath: string = '../../private_keys/metablox-' + pk_i + '.pk';
+  var data = fs.readFileSync(filePath, 'utf8');
+  console.log(data);
 
-const keyPair = CryptoUtils.privateKeyToKeypair(data);
-const sender = CryptoUtils.keyPairToAccountAddress(keyPair);
-console.log(sender,keyPair);
-handleWalletConnect(connectPrivateKey(sender, keyPair));
+  var keyPair = CryptoUtils.privateKeyToKeypair(data);
+  var sender = CryptoUtils.keyPairToAccountAddress(keyPair);
+  console.log(sender,keyPair);
+  handleWalletConnect(connectPrivateKey(sender, keyPair));
 
-setContractAddress("026006f86c0733d30ed75c96460e57e573efcaa461");
+  setContractAddress("026006f86c0733d30ed75c96460e57e573efcaa461");
 
-setTimeout(() => 
-{
-  const api = getMetaBloxApi();
+  setTimeout(() => 
+  {
+    var api = getMetaBloxApi();
 
-  console.log("BEFORE SIGNING");
-  console.log(isConnected());
-  console.log(api);
-  if (isConnected() && api !== undefined) {
-    // const browserLink = <HTMLInputElement>document.querySelector("#sign-transaction-link");
-    // browserLink.innerHTML = '<br><div class="loader"></div>';
-    api
-      .sign()
-      .then((transactionHash) => {
-        // browserLink.innerHTML = `<br><a href="https://browser.testnet.partisiablockchain.com/transactions/${transactionHash}" target="_blank">Transaction link in browser</a>`;
-        console.log("https://browser.testnet.partisiablockchain.com/transactions/" + transactionHash);
-      })
-      .catch((msg) => {
-        // browserLink.innerHTML = `<br>${msg}`;
-        console.log(msg);
-      });
-  }
-},
-1000);
+    console.log("BEFORE SIGNING");
+    console.log(isConnected());
+    console.log(api);
+    if (isConnected() && api !== undefined) {
+      api
+        .sign()
+        .then((transactionHash) => {
+          console.log("https://browser.testnet.partisiablockchain.com/transactions/" + transactionHash);
+        })
+        .catch((msg) => {
+          console.log(msg);
+        });
+    }
+  },
+  1000);
+}
