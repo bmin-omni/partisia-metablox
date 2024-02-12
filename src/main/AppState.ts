@@ -70,11 +70,7 @@ export const isConnected = () => {
 export const setMetaBloxApi = () => {
   if (currentAccount != undefined) {
     const transactionApi = new TransactionApi(currentAccount, updateContractState);
-    console.log("!!!!!-----TRANSACTION API-----!!!!!");
-    console.log(transactionApi);
     metaBloxApi = new MetaBloxApi(transactionApi);
-    console.log("!!!!!-----METABLOX API-----!!!!!");
-    console.log(metaBloxApi);
   }
 };
 

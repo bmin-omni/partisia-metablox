@@ -91,22 +91,16 @@ const handleWalletConnect = (connect: Promise<ConnectedWallet>) => {
       });
   };
 
-/**
- * Structure of the raw data from a WASM contract.
- */
-// interface RawContractData {
-//     state: { data: string };
-// }
-
 let pkList: string[] = [];
 for (let pk_i = 1; pk_i <= 200; pk_i++){
   var filePath: string = '../../private_keys/metablox-' + pk_i + '.pk';
   pkList.push(fs.readFileSync(filePath, 'utf8'));
 }
 
-console.log(pkList);
+// console.log(pkList);
 
-var keyPair = CryptoUtils.privateKeyToKeypair(pkList[0]);
+var pkIndex: number = parseInt(process.argv[2]);
+var keyPair = CryptoUtils.privateKeyToKeypair(pkList[pkIndex]);
 var sender = CryptoUtils.keyPairToAccountAddress(keyPair);
 console.log(sender,keyPair);
 handleWalletConnect(connectPrivateKey(sender, keyPair));
