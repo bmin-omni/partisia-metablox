@@ -11,7 +11,7 @@ import {
   VecTypeSpec,
 } from "@partisiablockchain/abi-client";
 
-var filePath: string = 'xiaoyi_did.abi';
+var filePath: string = 'contract/xiaoyi_did.abi';
 const fileAbi: FileAbi = new AbiParser(fs.readFileSync(filePath)).parseAbi();
 
 export interface ContractState {
@@ -63,8 +63,9 @@ export function initialize(description: string): Buffer {
   return fnBuilder.getBytes();
 }
 
-export function register_did(): Buffer {
+export function register_did(sender: string): Buffer {
   const fnBuilder = new FnRpcBuilder("register_did", fileAbi.contract);
   console.log(fnBuilder);
+  fnBuilder.addString("did:veric:0x" + sender);
   return fnBuilder.getBytes();
 }

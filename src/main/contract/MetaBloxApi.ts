@@ -19,7 +19,7 @@ export class MetaBloxApi {
   /**
    * Build and send sign transaction.
    */
-  readonly sign = () => {
+  readonly register_did = (sender: string) => {
     const address = getContractAddress();
     console.log("ADDRESS TO");
     console.log(address);
@@ -27,7 +27,7 @@ export class MetaBloxApi {
       throw new Error("No address provided");
     }
     // First build the RPC buffer that is the payload of the transaction.
-    const rpc = register_did();
+    const rpc = register_did(sender);
     // Then send the payload via the transaction API.
     return this.transactionApi.sendTransactionAndWait(address, rpc, 10_000);
   };

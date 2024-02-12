@@ -121,7 +121,7 @@ setTimeout(() =>
   console.log(api);
   if (isConnected() && api !== undefined) {
     api
-      .sign()
+      .register_did(sender)
       .then((transactionHash) => {
         console.log("https://browser.testnet.partisiablockchain.com/transactions/" + transactionHash);
       })
