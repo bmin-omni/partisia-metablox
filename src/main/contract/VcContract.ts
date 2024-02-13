@@ -87,7 +87,7 @@ export function upload_vc(sender: string, description: string): Buffer {
   // routeStatus.addString(statusString);
   // routeStatus.addString(statusHash);
 
-  console.log(fnBuilder);
+  // console.log(fnBuilder);
 
   var date = new Date();
   var yearAfter = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
