@@ -228,44 +228,45 @@ interface RawContractData {
  * Write some of the state to the UI.
  */
 export const updateContractState = () => {
-  const address = getContractAddress();
-  if (address === undefined) {
-    throw new Error("No address provided");
-  }
-  // const refreshLoader = <HTMLInputElement>document.querySelector("#refresh-loader");
-  // refreshLoader.classList.remove("hidden");
-  CLIENT.getContractData<RawContractData>(address).then((contract) => {
-    if (contract != null) {
-      // Reads the state of the contract
-      const stateBuffer = Buffer.from(contract.serializedContract.state.data, "base64");
+  // const address = getContractAddress();
+  // if (address === undefined) {
+  //   throw new Error("No address provided");
+  // }
+  // // const refreshLoader = <HTMLInputElement>document.querySelector("#refresh-loader");
+  // // refreshLoader.classList.remove("hidden");
+  // CLIENT.getContractData<RawContractData>(address).then((contract) => {
+  //   if (contract != null) {
+  //     // Reads the state of the contract
+  //     const stateBuffer = Buffer.from(contract.serializedContract.state.data, "base64");
 
-      const state = deserializeMetaBloxState({ state: stateBuffer });
+  //     const state = deserializeMetaBloxState({ state: stateBuffer });
 
-      // const stateHeader = <HTMLInputElement>document.querySelector("#state-header");
-      // const updateStateButton = <HTMLInputElement>document.querySelector("#update-state");
-      // stateHeader.classList.remove("hidden");
-      // updateStateButton.classList.remove("hidden");
+  //     // const stateHeader = <HTMLInputElement>document.querySelector("#state-header");
+  //     // const updateStateButton = <HTMLInputElement>document.querySelector("#update-state");
+  //     // stateHeader.classList.remove("hidden");
+  //     // updateStateButton.classList.remove("hidden");
 
-      // const description = <HTMLElement>document.querySelector("#description");
-      // description.innerHTML = `${state.description}`;
-      console.log(state.owner_did);
+  //     // const description = <HTMLElement>document.querySelector("#description");
+  //     // description.innerHTML = `${state.description}`;
+  //     console.log(state.owner_did);
 
-      // const signedBy = <HTMLElement>document.querySelector("#signed-by");
-      // signedBy.innerHTML = "";
-      // state.signedBy.forEach((signer: BlockchainAddress) => {
-      //   // const signerElement = document.createElement("div");
-      //   // signerElement.innerHTML = signer.asString();
-      //   console.log(signer.asString())
-      //   // signedBy.appendChild(signerElement);
-      // });
+  //     // const signedBy = <HTMLElement>document.querySelector("#signed-by");
+  //     // signedBy.innerHTML = "";
+  //     // state.signedBy.forEach((signer: BlockchainAddress) => {
+  //     //   // const signerElement = document.createElement("div");
+  //     //   // signerElement.innerHTML = signer.asString();
+  //     //   console.log(signer.asString())
+  //     //   // signedBy.appendChild(signerElement);
+  //     // });
 
-      // const contractState = <HTMLElement>document.querySelector("#contract-state");
-      // contractState.classList.remove("hidden");
-      // refreshLoader.classList.add("hidden");
-    } else {
-      throw new Error("Could not find data for contract");
-    }
-  });
+  //     // const contractState = <HTMLElement>document.querySelector("#contract-state");
+  //     // contractState.classList.remove("hidden");
+  //     // refreshLoader.classList.add("hidden");
+  //   } else {
+  //     throw new Error("Could not find data for contract");
+  //   }
+  // });
+  return true;
 };
 
 export const updateInteractionVisibility = () => {
