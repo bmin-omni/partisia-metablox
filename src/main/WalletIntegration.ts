@@ -26,7 +26,7 @@ import { BigEndianByteOutput } from "@secata-public/bitmanipulation-ts";
 import { Rpc, TransactionPayload } from "./client/TransactionData";
 import { ec } from "elliptic";
 import { CryptoUtils } from "./client/CryptoUtils";
-import { deserializeMetaBloxState } from "./contract/DidContract";
+// import { deserializeMetaBloxState } from "./contract/DidContract";
 // import { BlockchainAddress } from "@partisiablockchain/abi-client";
 
 interface MetamaskRequestArguments {
@@ -220,9 +220,9 @@ export const disconnectWalletClick = () => {
 /**
  * Structure of the raw data from a WASM contract.
  */
-interface RawContractData {
-  state: { data: string };
-}
+// interface RawContractData {
+//   state: { data: string };
+// }
 
 /**
  * Write some of the state to the UI.

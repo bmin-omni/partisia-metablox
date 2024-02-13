@@ -1,4 +1,6 @@
 import * as fs from 'fs';
+import BN from "bn.js";
+// import * as crypto from "crypto";
 
 import {
   AbiParser,
@@ -8,7 +10,9 @@ import {
   StateReader,
   StateBytes,
   BlockchainAddress,
-  VecTypeSpec,
+  // VecTypeSpec,
+  // TypeIndex,
+  // TypeSpec
 } from "@partisiablockchain/abi-client";
 
 var filePath: string = 'contract/xiaoyi_vc.abi';
@@ -54,11 +58,43 @@ export function initialize(description: string): Buffer {
   return fnBuilder.getBytes();
 }
 
-export function upload_vc(sender: string, vcId: string, subjectInfo: VecTypeSpec, date: Date, description: string ): Buffer {
+// interface SubjectInfo {
+//   property_name: String,
+//   property_value: String,
+// }
+
+// function newSubjectInfo(typeIndex: TypeIndex.Vec, valueType: TypeSpec): VecTypeSpec {
+//   return { typeIndex, valueType };
+// }
+
+export function upload_vc(sender: string, description: string): Buffer {
   const fnBuilder = new FnRpcBuilder("upload_vc", fileAbi.contract);
-  // console.log(fnBuilder);
+  const vcId = new BN(Math.floor(Math.random() * 9999999999999));
+
   fnBuilder.addString("did:veric:0x" + sender);
-  fnBuilder.addString(vcId);
+
+  fnBuilder.addU128(vcId);
+
+  fnBuilder.addString("did:veric:0x" + sender);
+
   fnBuilder.addVec();
+  // routeStatus.addString("Router status");
+  // const statusString = "Router Status";
+  // const statusHash = crypto.createHash('sha256').update(statusString).digest('hex');
+
+  // var subjectInfo = newSubjectInfo( statusString, statusHash)
+
+  // routeStatus.addString(statusString);
+  // routeStatus.addString(statusHash);
+
+  console.log(fnBuilder);
+
+  var date = new Date();
+  var yearAfter = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
+  fnBuilder.addString(date.toISOString());
+  fnBuilder.addString(yearAfter.toISOString());
+  fnBuilder.addString(description);
+  fnBuilder.addBool(false);
+  
   return fnBuilder.getBytes();
 }
