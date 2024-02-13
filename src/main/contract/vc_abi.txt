@@ -1,0 +1,123 @@
+ContractAbi {
+  namedTypes: [
+    StructTypeSpec {
+      name: 'SubjectInfo',
+      fields: [Array],
+      doc: [DocumentationNamedType]
+    },
+    StructTypeSpec {
+      name: 'VC',
+      fields: [Array],
+      doc: [DocumentationNamedType]
+    },
+    StructTypeSpec {
+      name: 'ContractState',
+      fields: [Array],
+      doc: [DocumentationNamedType]
+    },
+    StructTypeSpec {
+      name: 'EventSubscriptionId',
+      fields: [Array],
+      doc: [DocumentationNamedType]
+    },
+    StructTypeSpec {
+      name: 'ExternalEventId',
+      fields: [Array],
+      doc: [DocumentationNamedType]
+    },
+    StructTypeSpec {
+      name: 'SecretVarId',
+      fields: [Array],
+      doc: [DocumentationNamedType]
+    }
+  ],
+  functions: [
+    FnAbi {
+      kind: [Object],
+      name: 'initialize',
+      shortname: <Buffer ff ff ff ff 0f>,
+      arguments: [],
+      secretArgument: undefined,
+      doc: [DocumentationFunction]
+    },
+    FnAbi {
+      kind: [Object],
+      name: 'configure_registry_address',
+      shortname: <Buffer 01>,
+      arguments: [Array],
+      secretArgument: undefined,
+      doc: [DocumentationFunction]
+    },
+    FnAbi {
+      kind: [Object],
+      name: 'upload_vc',
+      shortname: <Buffer 02>,
+      arguments: [Array],
+      secretArgument: undefined,
+      doc: [DocumentationFunction]
+    },
+    FnAbi {
+      kind: [Object],
+      name: 'set_revoke',
+      shortname: <Buffer 03>,
+      arguments: [Array],
+      secretArgument: undefined,
+      doc: [DocumentationFunction]
+    },
+    FnAbi {
+      kind: [Object],
+      name: 'upload_vc_callback',
+      shortname: <Buffer 12>,
+      arguments: [Array],
+      secretArgument: undefined,
+      doc: [DocumentationFunction]
+    },
+    FnAbi {
+      kind: [Object],
+      name: 'set_revoke_callback',
+      shortname: <Buffer 13>,
+      arguments: [Array],
+      secretArgument: undefined,
+      doc: [DocumentationFunction]
+    }
+  ],
+  stateType: { typeIndex: 0, index: 2 }
+}
+FnAbi {
+  kind: {
+    kindId: 2,
+    minAllowedPerContract: 0,
+    maxAllowedPerContract: 2147483647
+  },
+  name: 'upload_vc',
+  shortname: <Buffer 02>,
+  arguments: [
+    { name: 'issuer_did', type: [Object] },
+    { name: 'vc_id', type: [Object] },
+    { name: 'subject_did', type: [Object] },
+    { name: 'subject_info', type: [Object] },
+    { name: 'valid_since', type: [Object] },
+    { name: 'valid_until', type: [Object] },
+    { name: 'descrption', type: [Object] },
+    { name: 'is_revoked', type: [Object] }
+  ],
+  secretArgument: undefined,
+  doc: DocumentationFunction {
+    description: [],
+    arguments: Map(0) {},
+    returns: null
+  }
+}
+[
+  { name: 'issuer_did', type: { typeIndex: 11 } },
+  { name: 'vc_id', type: { typeIndex: 5 } },
+  { name: 'subject_did', type: { typeIndex: 11 } },
+  {
+    name: 'subject_info',
+    type: { typeIndex: 14, valueType: [Object] }
+  },
+  { name: 'valid_since', type: { typeIndex: 11 } },
+  { name: 'valid_until', type: { typeIndex: 11 } },
+  { name: 'descrption', type: { typeIndex: 11 } },
+  { name: 'is_revoked', type: { typeIndex: 12 } }
+]
