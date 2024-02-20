@@ -118,7 +118,8 @@ setTimeout(() =>
     api
       .register_did(sender)
       .then((transactionHash) => {
-        console.log("https://browser.testnet.partisiablockchain.com/transactions/" + transactionHash);
+        console.log("https://browser.partisiablockchain.com/transactions/" + transactionHash);
+        // console.log("https://browser.testnet.partisiablockchain.com/transactions/" + transactionHash);
       })
       .catch((msg) => {
         console.log(msg);
