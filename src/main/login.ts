@@ -1,6 +1,6 @@
 import { ec } from "elliptic";
 import { BigEndianByteOutput } from "@secata-public/bitmanipulation-ts";
-import * as fs from 'fs';
+// import * as fs from 'fs';
 
 import { CryptoUtils } from "./client/CryptoUtils";
 import { ConnectedWallet } from "./ConnectedWallet";
