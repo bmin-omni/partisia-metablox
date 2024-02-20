@@ -1,3 +1,5 @@
+import BN from "bn.js";
+
 import { TransactionApi } from "../client/TransactionApi";
 import { register_did } from "./DidContract";
 import { upload_vc } from "./VcContract";
@@ -30,7 +32,16 @@ export class MetaBloxApi {
     return this.transactionApi.sendTransactionAndWait(address, rpc, 10_000);
   };
 
-  readonly upload_vc = (sender: string, description: string) => {
+  readonly upload_vc = (
+    issuer: string,
+    vcId: BN,
+    subject: string,
+    statusString: string,
+    statusHash: string,
+    validSince: string,
+    validUntil: string,
+    description: string,
+    isRevoked: boolean) => {
     const address = getContractAddress();
     console.log("ADDRESS TO");
     console.log(address);
@@ -38,7 +49,7 @@ export class MetaBloxApi {
       throw new Error("No address provided");
     }
     // First build the RPC buffer that is the payload of the transaction.
-    const rpc = upload_vc(sender, description);
+    const rpc = upload_vc(issuer, vcId, subject, statusString, statusHash, validSince, validUntil, description, isRevoked);
     // Then send the payload via the transaction API.
     return this.transactionApi.sendTransactionAndWait(address, rpc, 10_000);
   };

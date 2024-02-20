@@ -91,21 +91,25 @@ const handleWalletConnect = (connect: Promise<ConnectedWallet>) => {
       });
   };
 
-let pkList: string[] = [];
-for (let pk_i = 1; pk_i <= 200; pk_i++){
-  var filePath: string = '../../private_keys/metablox-' + pk_i + '.pk';
-  pkList.push(fs.readFileSync(filePath, 'utf8'));
-}
+// let pkList: string[] = [];
+// for (let pk_i = 1; pk_i <= 200; pk_i++){
+//   var filePath: string = '../../private_keys/metablox-' + pk_i + '.pk';
+//   pkList.push(fs.readFileSync(filePath, 'utf8'));
+// }
 
 // console.log(pkList);
 
-var pkIndex: number = parseInt(process.argv[2]);
-var keyPair = CryptoUtils.privateKeyToKeypair(pkList[pkIndex]);
+// var pkIndex: number = parseInt(process.argv[2]);
+// var keyPair = CryptoUtils.privateKeyToKeypair(pkList[pkIndex]);
+
+var keyPair = CryptoUtils.privateKeyToKeypair(process.argv[2]);
+
 var sender = CryptoUtils.keyPairToAccountAddress(keyPair);
 console.log(sender);
 handleWalletConnect(connectPrivateKey(sender, keyPair));
 
-setContractAddress("026006f86c0733d30ed75c96460e57e573efcaa461");
+// setContractAddress("026006f86c0733d30ed75c96460e57e573efcaa461");
+setContractAddress("02541ecd8fe5b2c4c351ce74e6c4bbdba34aec0a8a");
 setTimeout(() => 
 {
   var api = getMetaBloxApi();

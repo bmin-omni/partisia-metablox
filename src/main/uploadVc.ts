@@ -1,6 +1,8 @@
 import { ec } from "elliptic";
 import { BigEndianByteOutput } from "@secata-public/bitmanipulation-ts";
 import * as fs from 'fs';
+import BN from "bn.js";
+import * as crypto from "crypto";
 
 import { CryptoUtils } from "./client/CryptoUtils";
 import { ConnectedWallet } from "./ConnectedWallet";
@@ -109,12 +111,23 @@ setContractAddress("025f177db0c3433463ee67b95f1217fae7f781ce70");
 setTimeout(() => 
 {
   var api = getMetaBloxApi();
+  const issuer = "did:veric:0x" + sender;
+  const subject = "did:veric:0x" + sender;
+  const vcId = new BN(Math.floor(Math.random() * 9999999999999));
+
+  const statusString = "Router Status";
+  const statusHash = crypto.createHash('sha256').update(statusString).digest('hex');
+
+  var validSince = new Date().toISOString();
+  var validUntil = new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString();
+
   var description = "MetaBlox router status report";
+  var isRevoked = false;
 
 
   if (isConnected() && api !== undefined) {
     api
-      .upload_vc(sender, description)
+      .upload_vc(issuer, vcId, subject, statusString, statusHash, validSince, validUntil, description, isRevoked)
       .then((transactionHash) => {
         console.log("https://browser.testnet.partisiablockchain.com/transactions/" + transactionHash);
       })

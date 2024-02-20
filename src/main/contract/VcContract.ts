@@ -1,6 +1,5 @@
 import * as fs from 'fs';
 import BN from "bn.js";
-// import * as crypto from "crypto";
 
 import {
   AbiParser,
@@ -67,34 +66,28 @@ export function initialize(description: string): Buffer {
 //   return { typeIndex, valueType };
 // }
 
-export function upload_vc(sender: string, description: string): Buffer {
+export function upload_vc(
+  issuer: string,
+  vcId: BN,
+  subject: string,
+  statusString: string,
+  statusHash: string,
+  validSince: string,
+  validUntil: string,
+  description: string,
+  isRevoked: boolean): Buffer {
   const fnBuilder = new FnRpcBuilder("upload_vc", fileAbi.contract);
-  const vcId = new BN(Math.floor(Math.random() * 9999999999999));
 
-  fnBuilder.addString("did:veric:0x" + sender);
-
+  fnBuilder.addString(issuer);
   fnBuilder.addU128(vcId);
-
-  fnBuilder.addString("did:veric:0x" + sender);
+  fnBuilder.addString(subject);
 
   fnBuilder.addVec();
-  // routeStatus.addString("Router status");
-  // const statusString = "Router Status";
-  // const statusHash = crypto.createHash('sha256').update(statusString).digest('hex');
 
-  // var subjectInfo = newSubjectInfo( statusString, statusHash)
-
-  // routeStatus.addString(statusString);
-  // routeStatus.addString(statusHash);
-
-  // console.log(fnBuilder);
-
-  var date = new Date();
-  var yearAfter = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
-  fnBuilder.addString(date.toISOString());
-  fnBuilder.addString(yearAfter.toISOString());
+  fnBuilder.addString(validSince);
+  fnBuilder.addString(validUntil);
   fnBuilder.addString(description);
-  fnBuilder.addBool(false);
+  fnBuilder.addBool(isRevoked);
   
   return fnBuilder.getBytes();
 }
