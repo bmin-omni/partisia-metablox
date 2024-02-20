@@ -116,13 +116,13 @@ setTimeout(() =>
   const subject = "did:veric:0x" + sender;
   const vcId = new BN(Math.floor(Math.random() * 9999999999999));
 
-  const statusString = "Router Status";
-  const statusHash = crypto.createHash('sha256').update(statusString).digest('hex');
-  const subjectInfo = newSubjectInfo(statusString, statusHash);
-  let subjectInfoList = [subjectInfo];
-
   var validSince = new Date().toISOString();
   var validUntil = new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString();
+
+  const statusString = "Router Status";
+  const statusHash = crypto.createHash('sha256').update(statusString + validSince).digest('hex');
+  const subjectInfo = newSubjectInfo(statusString, statusHash);
+  let subjectInfoList = [subjectInfo];
 
   var description = "MetaBlox router status report";
   var isRevoked = false;
