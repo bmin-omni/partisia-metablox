@@ -16,6 +16,8 @@ import {
 import { serializeTransaction } from "./client/TransactionSerialization";
 import { TransactionApi } from "./client/TransactionApi";
 
+import { addressList } from "./address_list";
+
 /**
  * Function for using a private key to sign and send transactions.
  */
@@ -41,7 +43,8 @@ const connectPrivateKey = async (sender: string, keyPair: ec.KeyPair): Promise<C
           );
           const hash = CryptoUtils.hashBuffers([
             serializedTx,
-            BigEndianByteOutput.serialize((out) => out.writeString("Partisia Blockchain Testnet")),
+            // BigEndianByteOutput.serialize((out) => out.writeString("Partisia Blockchain Testnet")),
+            BigEndianByteOutput.serialize((out) => out.writeString("Partisia Blockchain")),
           ]);
           const signature = keyPair.sign(hash);
   
@@ -103,6 +106,7 @@ const handleWalletConnect = (connect: Promise<ConnectedWallet>) => {
 // var keyPair = CryptoUtils.privateKeyToKeypair(pkList[pkIndex]);
 
 var keyPair = CryptoUtils.privateKeyToKeypair(process.argv[2]);
+const addressIndex = parseInt(process.argv[3]);
 
 var sender = CryptoUtils.keyPairToAccountAddress(keyPair);
 console.log(sender);
@@ -110,13 +114,31 @@ handleWalletConnect(connectPrivateKey(sender, keyPair));
 
 // setContractAddress("026006f86c0733d30ed75c96460e57e573efcaa461");
 setContractAddress("02541ecd8fe5b2c4c351ce74e6c4bbdba34aec0a8a");
+
 setTimeout(() => 
 {
   var api = getMetaBloxApi();
 
+  // if (isConnected() && api !== undefined) {
+  //   api
+  //     .register_did(sender)
+  //     .then((transactionHash) => {
+  //       console.log("https://browser.partisiablockchain.com/transactions/" + transactionHash);
+  //       // console.log("https://browser.testnet.partisiablockchain.com/transactions/" + transactionHash);
+  //     })
+  //     .catch((msg) => {
+  //       console.log(msg);
+  //     });
+  // }
+  // else {
+  //   console.log("Wallet not connected or api not created");
+  // }
+  
+  // for (let i = 0; i < addressList.length; i++){
+  
   if (isConnected() && api !== undefined) {
     api
-      .register_did(sender)
+      .register_did(addressList[addressIndex].key)
       .then((transactionHash) => {
         console.log("https://browser.partisiablockchain.com/transactions/" + transactionHash);
         // console.log("https://browser.testnet.partisiablockchain.com/transactions/" + transactionHash);

@@ -24,7 +24,13 @@ import { ConnectedWallet } from "./ConnectedWallet";
 import { MetaBloxApi } from "./contract/MetaBloxApi";
 import { updateContractState } from "./WalletIntegration";
 
-export const CLIENT = new ShardedClient("https://node1.testnet.partisiablockchain.com", [
+// export const CLIENT = new ShardedClient("https://node1.testnet.partisiablockchain.com", [
+//   "Shard0",
+//   "Shard1",
+//   "Shard2",
+// ]);
+
+export const CLIENT = new ShardedClient("https://reader.partisiablockchain.com", [
   "Shard0",
   "Shard1",
   "Shard2",
