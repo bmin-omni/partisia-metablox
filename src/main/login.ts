@@ -43,7 +43,6 @@ const connectPrivateKey = async (sender: string, keyPair: ec.KeyPair): Promise<C
           );
           const hash = CryptoUtils.hashBuffers([
             serializedTx,
-            // BigEndianByteOutput.serialize((out) => out.writeString("Partisia Blockchain Testnet")),
             BigEndianByteOutput.serialize((out) => out.writeString("Partisia Blockchain")),
           ]);
           const signature = keyPair.sign(hash);
@@ -112,8 +111,8 @@ var sender = CryptoUtils.keyPairToAccountAddress(keyPair);
 console.log(sender);
 handleWalletConnect(connectPrivateKey(sender, keyPair));
 
-// setContractAddress("026006f86c0733d30ed75c96460e57e573efcaa461");
-setContractAddress("02541ecd8fe5b2c4c351ce74e6c4bbdba34aec0a8a");
+// setContractAddress("026006f86c0733d30ed75c96460e57e573efcaa461"); //xiaoyi_did
+setContractAddress("02541ecd8fe5b2c4c351ce74e6c4bbdba34aec0a8a"); //veric_did
 
 setTimeout(() => 
 {

@@ -44,7 +44,7 @@ const connectPrivateKey = async (sender: string, keyPair: ec.KeyPair): Promise<C
           );
           const hash = CryptoUtils.hashBuffers([
             serializedTx,
-            BigEndianByteOutput.serialize((out) => out.writeString("Partisia Blockchain Testnet")),
+            BigEndianByteOutput.serialize((out) => out.writeString("Partisia Blockchain")),
           ]);
           const signature = keyPair.sign(hash);
   
@@ -108,7 +108,9 @@ var sender = CryptoUtils.keyPairToAccountAddress(keyPair);
 console.log(sender);
 handleWalletConnect(connectPrivateKey(sender, keyPair));
 
-setContractAddress("025f177db0c3433463ee67b95f1217fae7f781ce70");
+// setContractAddress("025f177db0c3433463ee67b95f1217fae7f781ce70"); //xiaoyi_vc
+setContractAddress("024b5baedccc2a0a183f6c419f8a129704f25b4534"); //veric_vc
+
 setTimeout(() => 
 {
   var api = getMetaBloxApi();
@@ -132,7 +134,8 @@ setTimeout(() =>
     api
       .upload_vc(issuer, vcId, subject, subjectInfoList, validSince, validUntil, description, isRevoked)
       .then((transactionHash) => {
-        console.log("https://browser.testnet.partisiablockchain.com/transactions/" + transactionHash);
+        // console.log("https://browser.testnet.partisiablockchain.com/transactions/" + transactionHash);
+        console.log("https://browser.partisiablockchain.com/transactions/" + transactionHash);
       })
       .catch((msg) => {
         console.log(msg);
