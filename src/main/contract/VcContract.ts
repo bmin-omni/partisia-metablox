@@ -9,6 +9,7 @@ import {
   StateReader,
   StateBytes,
   BlockchainAddress,
+  AbstractBuilder,
   // VecTypeSpec,
   // TypeIndex,
   // TypeSpec
@@ -66,29 +67,60 @@ export function initialize(description: string): Buffer {
 //   return { typeIndex, valueType };
 // }
 
-export function upload_vc(
-  issuer: string,
-  vcId: BN,
-  subject: string,
-  statusString: string,
-  statusHash: string,
-  validSince: string,
-  validUntil: string,
-  description: string,
-  isRevoked: boolean): Buffer {
+// export function upload_vc(
+//   issuer: string,
+//   vcId: BN,
+//   subject: string,
+//   statusString: string,
+//   statusHash: string,
+//   validSince: string,
+//   validUntil: string,
+//   description: string,
+//   isRevoked: boolean): Buffer {
+//   const fnBuilder = new FnRpcBuilder("upload_vc", fileAbi.contract);
+
+//   fnBuilder.addString(issuer);
+//   fnBuilder.addU128(vcId);
+//   fnBuilder.addString(subject);
+//   console.log(statusHash);
+//   console.log(statusString);
+//   fnBuilder.addVec();
+
+//   fnBuilder.addString(validSince);
+//   fnBuilder.addString(validUntil);
+//   fnBuilder.addString(description);
+//   fnBuilder.addBool(isRevoked);
+  
+//   return fnBuilder.getBytes();
+// }
+
+function buildRpcSubjectInfo(value: SubjectInfo, builder: AbstractBuilder) {
+  const structBuilder = builder.addStruct();
+  structBuilder.addString(value.propertyName);
+  structBuilder.addString(value.propertyValue);
+}
+
+export interface SubjectInfo {
+  propertyName: string;
+  propertyValue: string;
+}
+
+export function newSubjectInfo(propertyName: string, propertyValue: string): SubjectInfo {
+  return {propertyName, propertyValue};
+}
+
+export function upload_vc(issuerDid: string, vcId: BN, subjectDid: string, subjectInfo: SubjectInfo[], validSince: string, validUntil: string, descrption: string, isRevoked: boolean): Buffer {
   const fnBuilder = new FnRpcBuilder("upload_vc", fileAbi.contract);
-
-  fnBuilder.addString(issuer);
+  fnBuilder.addString(issuerDid);
   fnBuilder.addU128(vcId);
-  fnBuilder.addString(subject);
-  console.log(statusHash);
-  console.log(statusString);
-  fnBuilder.addVec();
-
+  fnBuilder.addString(subjectDid);
+  const vecBuilder8 = fnBuilder.addVec();
+  for (const vecEntry9 of subjectInfo) {
+    buildRpcSubjectInfo(vecEntry9, vecBuilder8);
+  }
   fnBuilder.addString(validSince);
   fnBuilder.addString(validUntil);
-  fnBuilder.addString(description);
+  fnBuilder.addString(descrption);
   fnBuilder.addBool(isRevoked);
-  
   return fnBuilder.getBytes();
 }

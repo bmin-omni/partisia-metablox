@@ -17,6 +17,7 @@ import {
 } from "./AppState";
 import { serializeTransaction } from "./client/TransactionSerialization";
 import { TransactionApi } from "./client/TransactionApi";
+import { newSubjectInfo } from "./contract/VcContract";
 
 /**
  * Function for using a private key to sign and send transactions.
@@ -117,6 +118,8 @@ setTimeout(() =>
 
   const statusString = "Router Status";
   const statusHash = crypto.createHash('sha256').update(statusString).digest('hex');
+  const subjectInfo = newSubjectInfo(statusString, statusHash);
+  let subjectInfoList = [subjectInfo];
 
   var validSince = new Date().toISOString();
   var validUntil = new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString();
@@ -127,7 +130,7 @@ setTimeout(() =>
 
   if (isConnected() && api !== undefined) {
     api
-      .upload_vc(issuer, vcId, subject, statusString, statusHash, validSince, validUntil, description, isRevoked)
+      .upload_vc(issuer, vcId, subject, subjectInfoList, validSince, validUntil, description, isRevoked)
       .then((transactionHash) => {
         console.log("https://browser.testnet.partisiablockchain.com/transactions/" + transactionHash);
       })
