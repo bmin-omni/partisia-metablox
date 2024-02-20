@@ -64,6 +64,7 @@ export class TransactionApi {
               throw reason;
             });
         } else {
+          console.log(putResponse);
           throw new Error("Transaction could not be sent");
         }
       });
