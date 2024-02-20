@@ -81,7 +81,8 @@ export function upload_vc(
   fnBuilder.addString(issuer);
   fnBuilder.addU128(vcId);
   fnBuilder.addString(subject);
-
+  console.log(statusHash);
+  console.log(statusString);
   fnBuilder.addVec();
 
   fnBuilder.addString(validSince);
