@@ -30,7 +30,7 @@ export class MetaBloxApi {
     // First build the RPC buffer that is the payload of the transaction.
     const rpc = register_did(sender);
     // Then send the payload via the transaction API.
-    return this.transactionApi.sendTransactionAndWait(address, rpc, 1_000);
+    return this.transactionApi.sendTransactionAndWait(address, rpc, 0);
   };
 
   readonly upload_vc = (
@@ -51,6 +51,6 @@ export class MetaBloxApi {
     // First build the RPC buffer that is the payload of the transaction.
     const rpc = upload_vc(issuer, vcId, subject, subjectInfo, validSince, validUntil, description, isRevoked);
     // Then send the payload via the transaction API.
-    return this.transactionApi.sendTransactionAndWait(address, rpc, 1_000);
+    return this.transactionApi.sendTransactionAndWait(address, rpc, 0);
   };
 }
