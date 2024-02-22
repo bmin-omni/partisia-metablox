@@ -1,6 +1,6 @@
 import { ec } from "elliptic";
 import { BigEndianByteOutput } from "@secata-public/bitmanipulation-ts";
-import * as fs from 'fs';
+// import * as fs from 'fs';
 import BN from "bn.js";
 import * as crypto from "crypto";
 
@@ -11,13 +11,15 @@ import {
   CLIENT,
   resetAccount, 
   setAccount, 
-  setContractAddress, 
-  getMetaBloxApi, 
+  setContractAddress,
+  getMetaBloxApi,
   isConnected,
 } from "./AppState";
 import { serializeTransaction } from "./client/TransactionSerialization";
 import { TransactionApi } from "./client/TransactionApi";
 import { newSubjectInfo } from "./contract/VcContract";
+
+import { addressList } from "./address_list";
 
 /**
  * Function for using a private key to sign and send transactions.
@@ -94,16 +96,22 @@ const handleWalletConnect = (connect: Promise<ConnectedWallet>) => {
       });
   };
 
-let pkList: string[] = [];
-for (let pk_i = 1; pk_i <= 200; pk_i++){
-  var filePath: string = '../../private_keys/metablox-' + pk_i + '.pk';
-  pkList.push(fs.readFileSync(filePath, 'utf8'));
-}
+// let pkList: string[] = [];
+// for (let pk_i = 1; pk_i <= 200; pk_i++){
+//   var filePath: string = '../../private_keys/metablox-' + pk_i + '.pk';
+//   pkList.push(fs.readFileSync(filePath, 'utf8'));
+// }
 
-// console.log(pkList);
+// // console.log(pkList);
 
-var pkIndex: number = parseInt(process.argv[2]);
-var keyPair = CryptoUtils.privateKeyToKeypair(pkList[pkIndex]);
+// var pkIndex: number = parseInt(process.argv[2]);
+// var keyPair = CryptoUtils.privateKeyToKeypair(pkList[pkIndex]);
+// var sender = CryptoUtils.keyPairToAccountAddress(keyPair);
+// console.log(sender);
+
+var keyPair = CryptoUtils.privateKeyToKeypair(process.argv[2]);
+const addressIndex = parseInt(process.argv[3]);
+
 var sender = CryptoUtils.keyPairToAccountAddress(keyPair);
 console.log(sender);
 handleWalletConnect(connectPrivateKey(sender, keyPair));
@@ -115,7 +123,7 @@ setTimeout(() =>
 {
   var api = getMetaBloxApi();
   const issuer = "did:veric:0x" + sender;
-  const subject = "did:veric:0x" + sender;
+  const subject = addressList[addressIndex].key;
   const vcId = new BN(Math.floor(Math.random() * 9999999999999));
 
   var validSince = new Date().toISOString();
