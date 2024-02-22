@@ -122,5 +122,6 @@ export function upload_vc(issuerDid: string, vcId: BN, subjectDid: string, subje
   fnBuilder.addString(validUntil);
   fnBuilder.addString(descrption);
   fnBuilder.addBool(isRevoked);
+  console.log(fnBuilder);
   return fnBuilder.getBytes();
 }
