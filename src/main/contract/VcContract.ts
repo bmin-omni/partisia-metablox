@@ -15,7 +15,8 @@ import {
   // TypeSpec
 } from "@partisiablockchain/abi-client";
 
-var filePath: string = 'contract/xiaoyi_vc.abi';
+// var filePath: string = 'contract/xiaoyi_vc.abi';
+var filePath: string = 'contract/veric_vc.abi';
 const fileAbi: FileAbi = new AbiParser(fs.readFileSync(filePath)).parseAbi();
 
 export interface ContractState {
