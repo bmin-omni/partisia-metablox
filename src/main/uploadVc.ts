@@ -126,6 +126,8 @@ setTimeout(() =>
   const subject = addressList[addressIndex].key;
   const vcId = new BN(Math.floor(Math.random() * 9999999999999));
 
+  console.log(subject);
+
   var validSince = new Date().toISOString();
   var validUntil = new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString();
 
