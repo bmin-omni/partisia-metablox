@@ -117,14 +117,13 @@ console.log(sender);
 handleWalletConnect(connectPrivateKey(sender, keyPair));
 
 // setContractAddress("025f177db0c3433463ee67b95f1217fae7f781ce70"); //xiaoyi_vc
-setContractAddress("024b5baedccc2a0a183f6c419f8a129704f25b4534"); //veric_vc
+setContractAddress("02036012aced913dd2169694c5c4b9a61cd615453d"); //veric_vc
 
 setTimeout(() => 
 {
   var api = getMetaBloxApi();
   const issuer = "did:veric:0x" + sender;
   const subject = addressList[addressIndex].key;
-  const vcId = new BN(Math.floor(Math.random() * 9999999999999));
 
   console.log(subject);
 
@@ -142,7 +141,7 @@ setTimeout(() =>
 
   if (isConnected() && api !== undefined) {
     api
-      .upload_vc(issuer, vcId, subject, subjectInfoList, validSince, validUntil, description, isRevoked)
+      .upload_vc(issuer, subject, subjectInfoList, validSince, validUntil, description, isRevoked)
       .then((transactionHash) => {
         // console.log("https://browser.testnet.partisiablockchain.com/transactions/" + transactionHash);
         console.log("https://browser.partisiablockchain.com/transactions/" + transactionHash);
