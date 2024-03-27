@@ -1,7 +1,6 @@
 import { ec } from "elliptic";
 import { BigEndianByteOutput } from "@secata-public/bitmanipulation-ts";
 // import * as fs from 'fs';
-import BN from "bn.js";
 import * as crypto from "crypto";
 
 import { CryptoUtils } from "./client/CryptoUtils";
@@ -109,15 +108,16 @@ const handleWalletConnect = (connect: Promise<ConnectedWallet>) => {
 // var sender = CryptoUtils.keyPairToAccountAddress(keyPair);
 // console.log(sender);
 
-var keyPair = CryptoUtils.privateKeyToKeypair(process.argv[2]);
-const addressIndex = parseInt(process.argv[3]);
+// setContractAddress("025f177db0c3433463ee67b95f1217fae7f781ce70"); //xiaoyi_vc
+// setContractAddress("02036012aced913dd2169694c5c4b9a61cd615453d"); //veric_vc
+setContractAddress(process.argv[2]);
+
+var keyPair = CryptoUtils.privateKeyToKeypair(process.argv[3]);
+const addressIndex = parseInt(process.argv[4]);
 
 var sender = CryptoUtils.keyPairToAccountAddress(keyPair);
 console.log(sender);
 handleWalletConnect(connectPrivateKey(sender, keyPair));
-
-// setContractAddress("025f177db0c3433463ee67b95f1217fae7f781ce70"); //xiaoyi_vc
-setContractAddress("02036012aced913dd2169694c5c4b9a61cd615453d"); //veric_vc
 
 setTimeout(() => 
 {
@@ -144,7 +144,8 @@ setTimeout(() =>
       .upload_vc(issuer, subject, subjectInfoList, validSince, validUntil, description, isRevoked)
       .then((transactionHash) => {
         // console.log("https://browser.testnet.partisiablockchain.com/transactions/" + transactionHash);
-        console.log("https://browser.partisiablockchain.com/transactions/" + transactionHash);
+        // console.log("https://browser.partisiablockchain.com/transactions/" + transactionHash);
+        console.log("Transaction complete: " + transactionHash);
       })
       .catch((msg) => {
         console.log(msg);
